@@ -7,14 +7,13 @@
 (import (lamu lang))
 (use "libnewp")
 
-; (define a (start-fluidsynth 'default-sound-font "aaaaa" "local-midi9" "test-server9" "midi"))
-; (apply a '())
+; EXAMPLE
+; (define a (start-fluidsynth 'default-sound-font "aaaaa" "local-midi9" "test-server9" "midi")) ;; open the synth
+; (apply a '()) ;; close the synth
 
-(define (start-fluidsynth sound-font-file local-id local-port-id remote-id remote-port-id )  
-  (if (not sound-font-file)
-      (set! sound-font-file 'default-sound-font ))
-  (if (eq? sound-font-file 'default-sound-font )
-      (set! sound-font-file "/usr/share/sounds/sf2/FluidR3_GM.sf2"))  
+(define (start-fluidsynth local-id local-port-id remote-id remote-port-id 
+                           #!key (sound-font-file "/usr/share/sounds/sf2/FluidR3_GM.sf2" ))
+    
   (open-output local-port-id )
   (set! fluidsynth-instance (newp dir: #!current-dir 
                              "fluidsynth"  "--gain=4" 
